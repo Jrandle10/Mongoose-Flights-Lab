@@ -7,8 +7,20 @@ function newFlight (req, res) {
 function create(req, res) {
   const flight = new Flight(req.body)
   flight.save(function(err) {
-    if (err) return res.redirect('/flights/new')
-    res.redirect('/flights/new')
+    if (err) return res.render('flights/new')
+    console.log(flight)
+    // redirect to all flights
+    res.redirect('/flights')
+  })
+}
+
+function index(req, res) {
+  Flight.find({}, function(error, flights) {
+    res.render("flights/index", {
+      flights,
+      error,
+
+    })
   })
 }
 
@@ -17,5 +29,6 @@ function create(req, res) {
 
 export {
   newFlight as new,
-  create
+  create,
+  index
 }
