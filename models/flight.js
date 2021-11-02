@@ -3,10 +3,19 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const flightSchema = new Schema({
-  airline: String,
-  airport: String,
+  airline: {
+    type: String,
+    required: true
+  },
+  airport: {
+    type: String,
+    enum: ['AUS', 'DFW', 'DEN', 'LAX', 'SAN']
+  },
   flightNo: Number,
-  departs: Date
+  departs: {
+    type: Date,
+    min: 2021
+  },
 }, {
   timestamps: true
 })
