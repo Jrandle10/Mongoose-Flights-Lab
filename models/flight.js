@@ -5,14 +5,11 @@ const Schema = mongoose.Schema
 // ticketSchema this schema will be embedded into to flightSchema to show the seat and price of the ticket in the flights detail (show) page
 
 const ticketSchema = new Schema({
-  content: String,
   seat: {
     type: String,
-    match: /[A-F] [1-9]\d?/
+    match: /[A-F][1-9]\d?/
   },
-  price: {
-    type: Number,
-  }
+  price: Number
 })
 
 
@@ -32,9 +29,8 @@ const flightSchema = new Schema({
     type: Date,
     min: 2021
   },
-  tickets: [ticketSchema]
-}, {
-  timestamps: true
+  tickets: [ticketSchema],
+  destinations: [{type: Schema.Types.ObjectId, ref: 'Destination'}]
 })
 
 
